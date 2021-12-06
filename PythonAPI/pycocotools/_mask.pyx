@@ -306,3 +306,12 @@ def frPyObjects(pyobj, h, w):
     else:
         raise Exception('input type is not supported.')
     return objs
+
+def decompress(rleObjs):
+    cdef RLEs Rs = _frString(rleObjs)
+    rles, hs, ws = [], [], []
+    for i in range(Rs.n):
+        rles.append([Rs._R[i].cnts[j] for j in range(Rs._R[i].m)])
+        hs.append(Rs._R[i].h)
+        ws.append(Rs._R[i].w)
+    return rles, hs, ws
